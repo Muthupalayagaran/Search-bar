@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parts Search</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+
+   
+    <style>
+        /* Add your custom CSS here */
+        body {
+    /* Set background image */
+    background-image: url('https://img.freepik.com/free-psd/delivery-3d-illustration-with-bike-shop-door_23-2149442159.jpg?w=740&t=st=1707730885~exp=1707731485~hmac=70a3a90f5679a33bf65c80e88631fe3f28ccae7130e69f8ab4e4930d532dc504');
+    /* Adjust background properties */
+    background-size: cover;
+    background-position: center;
+    /* Add fallback color */
+    background-color: #f8f9fa; /* You can adjust the color as needed */
+}
+        
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Parts Search</h1>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form id="searchForm" class="input-group" >
+                    <input type="text" id="partSearch" class="form-control" placeholder="Search Here..." required>
+                    <div class="input-group-append">
+                        <select class="custom-select" id="location">
+                            <option selected>Emirate</option>
+                            <option value="Dubai">Dubai</option>
+                            <option value="Abu Dhabi">Abu Dhabi</option>
+                            <option value="Sharjah">Sharjah</option>
+                        </select> 
+                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="button" id="clearButton" class="btn btn-primary" style="margin-left: 5px;">Clear</button>
+                    </div>
+                </form>
+                <p class="searchForm1"></p>
+            </div>
+        </div>
+        <div id="searchResults" class="row mt-4">
+            <!-- Search results will be displayed here -->
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script >
+     document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Get the search query and location
+    let partSearch = document.getElementById('partSearch').value;
+    let location = document.getElementById('location').value;
+
+    // Check if the search query is 'Break Pad'
+    if (partSearch.toLowerCase() === 'break pad') {
+        // Call function to fetch and display search results
+        fetchSearchResults(partSearch, location);
+    } else {
+        // Display an alert message indicating the product does not match
+        alert("Please enter 'Break Pad' as the product.");
+    }
+});
+
+function fetchSearchResults(partSearch, location) {
+    // Simulate fetching search results for demonstration purposes
+    let searchResults = [
+        { brand: 'Break pad', seller: 'A-MAP - BRAKE PADS'
+        , rating: 4.5, price: '$50' },
+        { brand: 'Break pad', seller: 'A-Map Auto Parts', rating: 4.2, price: '$60' },
+        { brand: 'Break pad', seller: 'Abdul Hadi Trading Company LLC', rating: 3.8, price: '$45' }
+    ];
+    let searchResults1 = [
+        { brand: 'Break pad', seller: 'Al Zaabi Auto Care', rating: 4.5, price: '$50' },
+        { brand: 'Break pad', seller: 'Frame Auto Brakes Rep. Co Mussafah Branch', rating: 4.2, price: '$60' },
+        { brand: 'Break pad', seller: 'Pedders Brake & Suspension Dealer ', rating: 4.0, price: '$45' }
+    ];
+
+    let searchResults2 = [
+        { brand: 'Break pad', seller: 'Qasr Al Zain Auto Spare Parts', rating: 4.5, price: '$50' },
+        { brand: 'Break pad', seller: 'Al Zomrah Auto Parts Company LLC', rating: 4.2, price: '$60' },
+        { brand: 'Break pad', seller: 'Al Taj Al Azraq Auto Spare Parts Trdg LLC', rating: 3.8, price: '$45' },
+        { brand: 'Break pad', seller: 'Frame Auto Brakes Rep. Co ', rating: 4.5, price: '$45' },
+        { brand: 'Break pad', seller: 'Meghna Auto Spare Parts Trading ', rating: 4.9, price: '$45' }
+
+
+    ];
+
+    // Determine which search results to use based on the location
+    let results;
+    switch(location) {
+        case 'Dubai':
+            results = searchResults;
+            break;
+        case 'Abu Dhabi':
+            results = searchResults1;
+            break;
+        case 'Sharjah':
+            results = searchResults2;
+            break;
+        default:
+            // Handle case where the location is not recognized
+            alert('Please select a valid location.');
+            return; // Exit the function
+    }
+
+    // Build HTML for search results
+    let searchResultsHtml = '';
+    results.forEach(result => {
+        searchResultsHtml += `
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${result.brand}</h5>
+                        <p class="card-text">Seller: ${result.seller}</p>
+                        <p class="card-text">Rating: ${result.rating}</p>
+                        <p class="card-text">Price: ${result.price}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    document.getElementById('clearButton').addEventListener('click', function() {
+        // Clear the search results container
+        document.getElementById('searchResults').innerHTML = '';
+    });
+
+    // Display search results on the webpage
+    document.getElementById('searchResults').innerHTML = searchResultsHtml;
+}
+
+    </script>
+</body>
+</html>
